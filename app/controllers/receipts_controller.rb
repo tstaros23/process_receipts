@@ -1,4 +1,7 @@
 class ReceiptsController < ApplicationController
+  def show
+    receipt = Receipt
+  end
   def create
     receipt = Receipt.new(receipt_params)
     render json: ReceiptSerializer.format_processor(receipt), status: :created
