@@ -13,7 +13,7 @@ RSpec.describe Receipt do
       ]
     }
     processed_receipt = Receipt.new(attr)
-
+    
     expect(processed_receipt).to be_an_instance_of(Receipt)
 
      expect(processed_receipt.retailer).to eq("Target")
