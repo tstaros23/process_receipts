@@ -2,8 +2,7 @@ class ReceiptsController < ApplicationController
   def show
     # receipt = Rails.cache.fetch("receipts/#{params[:id]}/points", expires_in: 12.hours)
     receipt = Rails.cache.read("#{receipt_params[:id]}")
-    receipt2 = Rails.cache.fetch(receipt_params) do
-    end
+    render json: ReceiptSerializer.format_points(receipt), status: :ok
   end
 
   def create
