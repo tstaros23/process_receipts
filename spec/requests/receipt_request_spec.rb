@@ -20,10 +20,11 @@ require 'rails_helper'
      expect(receipt_json).to have_key(:id)
 
      get "/receipts/#{receipt_json[:id]}/points"
-     
+
      expect(response).to be_successful
      expect(response.status).to eq(200)
 
      get_data = JSON.parse(response.body, symbolize_names: true)
+     expect(get_data[:points]).to eq(body[:total].to_s)
    end
  end
