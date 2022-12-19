@@ -27,7 +27,7 @@ RSpec.describe Receipt do
       }
       @processed_receipt2 = Receipt.new(attr)
   end
-  it "builds recipt attributes" do
+  it "builds receipt attributes" do
     expect(@processed_receipt).to be_an_instance_of(Receipt)
 
      expect(@processed_receipt.retailer).to eq("T@rget")
@@ -46,6 +46,11 @@ RSpec.describe Receipt do
      expect(@processed_receipt.price.class).to eq(Float)
 
      expect(@processed_receipt.id.class).to eq(String)
+
+     expect(@processed_receipt.items).to eq([
+       {short_description: "Pepsi - 12-oz", price: 1.25},
+       {short_description: "Coke - 12-oz", price: 1.25}
+     ])
   end
 
   it "can total alphanumeric characters" do
