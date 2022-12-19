@@ -8,8 +8,6 @@ class Receipt
     @purchase_time = attr[:purchase_time]
     @total = attr[:total]
     @items = attr[:items]
-    @short_description = attr[:items][0][:short_description]
-    @price = attr[:items][0][:price]
     @id = SecureRandom.hex
   end
 
@@ -47,5 +45,15 @@ class Receipt
       pairs += 1
     end
     pairs * 5
+  end
+
+  def trimmed
+    total = 0
+    @items.each do |item|
+      if item[:short_description].delete(' ').split('').count % 3 == 0
+        total += (item[:price] * 0.2).ceil
+      end
+    end
+    total
   end
 end

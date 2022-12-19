@@ -10,7 +10,7 @@ RSpec.describe Receipt do
         total: 1.24,
         items: [
           {short_description: "Pepsi - 12-oz", price: 1.25},
-          {short_description: "Coke - 12-oz", price: 1.25}
+          {short_description: "Coke - 12-ozes", price: 1.25}
         ]
       }
       @processed_receipt = Receipt.new(attr)
@@ -39,17 +39,17 @@ RSpec.describe Receipt do
      expect(@processed_receipt.total).to eq(1.24)
      expect(@processed_receipt.total.class).to eq(Float)
 
-     expect(@processed_receipt.short_description).to eq("Pepsi - 12-oz")
-     expect(@processed_receipt.short_description.class).to eq(String)
+     expect(@processed_receipt.items[0][:short_description]).to eq("Pepsi - 12-oz")
+     expect(@processed_receipt.items[0][:short_description].class).to eq(String)
 
-     expect(@processed_receipt.price).to eq(1.25)
-     expect(@processed_receipt.price.class).to eq(Float)
+     expect(@processed_receipt.items[0][:price]).to eq(1.25)
+     expect(@processed_receipt.items[0][:price].class).to eq(Float)
 
      expect(@processed_receipt.id.class).to eq(String)
 
      expect(@processed_receipt.items).to eq([
        {short_description: "Pepsi - 12-oz", price: 1.25},
-       {short_description: "Coke - 12-oz", price: 1.25}
+       {short_description: "Coke - 12-ozes", price: 1.25}
      ])
   end
 
@@ -71,5 +71,10 @@ RSpec.describe Receipt do
   it "can add 5 points for every two items on the receipt" do
     expect(@processed_receipt.add_pairs).to eq(5)
     expect(@processed_receipt2.add_pairs).to eq(0)
+  end
+
+  it "can multiple points based on the trimmed length" do
+    expect(@processed_receipt.trimmed).to eq(1)
+    expect(@processed_receipt2.trimmed).to eq(0)
   end
 end
