@@ -11,4 +11,14 @@ class Receipt
     @price = attr[:items][0][:price]
     @id = SecureRandom.hex
   end
+
+  def count_letters
+    total = 0
+    @retailer.downcase.split('').each do |letter|
+      if ('a'..'z').include?(letter)
+        total += 1
+      end
+    end
+    total
+  end
 end
