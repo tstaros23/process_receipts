@@ -13,6 +13,18 @@ RSpec.describe Receipt do
         ]
       }
       @processed_receipt = Receipt.new(attr)
+
+      attr =
+      {
+        retailer: "Target ",
+        purchase_date: "2022-01-02",
+        purchase_time: "13.13",
+        total: 1,
+        items: [
+          {short_description: "Pepsi - 12-oz", price: 1.25}
+        ]
+      }
+      @processed_receipt2 = Receipt.new(attr)
   end
   it "builds recipt attributes" do
     expect(@processed_receipt).to be_an_instance_of(Receipt)
@@ -37,5 +49,11 @@ RSpec.describe Receipt do
 
   it "can total alphanumeric characters" do
     expect(@processed_receipt.count_letters).to eq(5)
+    expect(@processed_receipt2.count_letters).to eq(6)
+  end
+
+  it "can add points if the total is a round dollar amount" do
+    expect(@processed_receipt.rounded).to eq(0)
+    expect(@processed_receipt2.rounded).to eq(50)
   end
 end

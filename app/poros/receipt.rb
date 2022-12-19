@@ -21,4 +21,12 @@ class Receipt
     end
     total
   end
+
+  def rounded
+    if @total.class == Integer
+      50
+    else
+      0
+    end
+  end
 end
