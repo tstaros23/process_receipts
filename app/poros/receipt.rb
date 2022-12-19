@@ -37,4 +37,8 @@ class Receipt
       0
     end
   end
+
+  def add_pairs
+    require "pry"; binding.pry
+  end
 end

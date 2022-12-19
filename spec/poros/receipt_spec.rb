@@ -9,7 +9,8 @@ RSpec.describe Receipt do
         purchase_time: "13.13",
         total: 1.24,
         items: [
-          {short_description: "Pepsi - 12-oz", price: 1.25}
+          {short_description: "Pepsi - 12-oz", price: 1.25},
+          {short_description: "Coke - 12-oz", price: 1.25}
         ]
       }
       @processed_receipt = Receipt.new(attr)
@@ -56,8 +57,14 @@ RSpec.describe Receipt do
     expect(@processed_receipt.rounded).to eq(0)
     expect(@processed_receipt2.rounded).to eq(50)
   end
+
   it "has a total divisible by .25" do
     expect(@processed_receipt.divisible).to eq(0)
     expect(@processed_receipt2.divisible).to eq(25)
+  end
+
+  it "can add 5 points for every two items on the receipt" do
+    expect(@processed_receipt.add_pairs).to eq(5)
+    expect(@processed_receipt2.add_pairs).to eq(0)
   end
 end
