@@ -7,7 +7,7 @@ RSpec.describe Receipt do
         retailer: "T@rget",
         purchase_date: "2022-01-02",
         purchase_time: "13.13",
-        total: 1.25,
+        total: 1.24,
         items: [
           {short_description: "Pepsi - 12-oz", price: 1.25}
         ]
@@ -35,7 +35,7 @@ RSpec.describe Receipt do
      expect(@processed_receipt.purchase_date).to eq("2022-01-02")
      expect(@processed_receipt.purchase_date.class).to eq(String)
 
-     expect(@processed_receipt.total).to eq(1.25)
+     expect(@processed_receipt.total).to eq(1.24)
      expect(@processed_receipt.total.class).to eq(Float)
 
      expect(@processed_receipt.short_description).to eq("Pepsi - 12-oz")
@@ -55,5 +55,9 @@ RSpec.describe Receipt do
   it "can add points if the total is a round dollar amount" do
     expect(@processed_receipt.rounded).to eq(0)
     expect(@processed_receipt2.rounded).to eq(50)
+  end
+  it "has a total divisible by .25" do
+    expect(@processed_receipt.divisible).to eq(0)
+    expect(@processed_receipt2.divisible).to eq(25)
   end
 end

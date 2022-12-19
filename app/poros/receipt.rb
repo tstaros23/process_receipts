@@ -29,4 +29,12 @@ class Receipt
       0
     end
   end
+
+  def divisible
+    if @total % 0.25 == 0
+      25
+    else
+      0
+    end
+  end
 end
