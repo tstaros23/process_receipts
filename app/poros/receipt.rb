@@ -56,4 +56,12 @@ class Receipt
     end
     total
   end
+
+  def odd_date
+    if @purchase_date.delete('-').to_i.odd?
+      6
+    else
+      0
+    end
+  end
 end

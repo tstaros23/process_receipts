@@ -5,7 +5,7 @@ RSpec.describe Receipt do
       attr =
       {
         retailer: "T@rget",
-        purchase_date: "2022-01-02",
+        purchase_date: "2022-01-01",
         purchase_time: "13.13",
         total: 1.24,
         items: [
@@ -19,7 +19,7 @@ RSpec.describe Receipt do
       {
         retailer: "Target ",
         purchase_date: "2022-01-02",
-        purchase_time: "13.13",
+        purchase_time: "15.13",
         total: 1,
         items: [
           {short_description: "Pepsi - 12-oz", price: 1.25}
@@ -33,7 +33,7 @@ RSpec.describe Receipt do
      expect(@processed_receipt.retailer).to eq("T@rget")
      expect(@processed_receipt.retailer.class).to eq(String)
 
-     expect(@processed_receipt.purchase_date).to eq("2022-01-02")
+     expect(@processed_receipt.purchase_date).to eq("2022-01-01")
      expect(@processed_receipt.purchase_date.class).to eq(String)
 
      expect(@processed_receipt.total).to eq(1.24)
@@ -73,8 +73,13 @@ RSpec.describe Receipt do
     expect(@processed_receipt2.add_pairs).to eq(0)
   end
 
-  it "can multiple points based on the trimmed length" do
+  it "can multiple points based on the trimmed short description length" do
     expect(@processed_receipt.trimmed).to eq(1)
     expect(@processed_receipt2.trimmed).to eq(0)
+  end
+
+  it "can add points if the date is odd" do
+    expect(@processed_receipt.odd_date).to eq(6)
+    expect(@processed_receipt2.odd_date).to eq(0)
   end
 end
