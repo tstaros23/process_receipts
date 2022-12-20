@@ -40,9 +40,9 @@ class Receipt
   def add_pairs
     total = @items.count
     pairs = 0
-    if @items.count % 2 == 0
-      total -= 2
-      pairs += 1
+    while total > 1 do
+        pairs += 1
+        total -= 2
     end
     pairs * 5
   end
@@ -79,6 +79,5 @@ class Receipt
   def calculate
     points = 0
     points += count_letters + rounded + divisible + add_pairs + trimmed + odd_date + special_time
-    require "pry"; binding.pry
   end
 end
