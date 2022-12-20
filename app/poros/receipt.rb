@@ -22,15 +22,15 @@ class Receipt
   end
 
   def rounded
-    if @total.class == Integer
-      50
-    else
+    if @total.to_f.ceil > @total.to_f
       0
+    else
+      50
     end
   end
 
   def divisible
-    if @total % 0.25 == 0
+    if @total.to_f % 0.25 == 0
       25
     else
       0
@@ -50,8 +50,10 @@ class Receipt
   def trimmed
     total = 0
     @items.each do |item|
-      if item[:short_description].delete(' ').split('').count % 3 == 0
-        total += (item[:price] * 0.2).ceil
+      trim = item[:short_description].strip!
+      if !trim.nil?
+        item[:short_description].strip!.split('').count % 3 == 0
+        total += 1
       end
     end
     total
@@ -63,5 +65,20 @@ class Receipt
     else
       0
     end
+  end
+
+  def special_time
+    military_time = @purchase_time.split('')[0..1].join.to_i
+    if military_time.between?(14, 16)
+      10
+    else
+      0
+    end
+  end
+
+  def calculate
+    points = 0
+    points += count_letters + rounded + divisible + add_pairs + trimmed + odd_date + special_time
+    require "pry"; binding.pry
   end
 end
