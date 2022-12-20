@@ -5,10 +5,10 @@ require 'rails_helper'
      body = {
        retailer: 'Target',
        purchase_date: "2022-01-02",
-       purchase_time: "13.13",
-       total: 1.25,
+       purchase_time: "13:13",
+       total: "1.25",
        items: [
-         {short_description: "Pepsi - 12-oz", price: 1.25}
+         {short_description: "Pepsi - 12-oz", price: "1.25"}
        ]
      }
 
@@ -25,6 +25,6 @@ require 'rails_helper'
      expect(response.status).to eq(200)
 
      get_data = JSON.parse(response.body, symbolize_names: true)
-     expect(get_data[:points]).to eq(body[:total].to_s)
+     expect(get_data[:points]).to eq(31)
    end
  end

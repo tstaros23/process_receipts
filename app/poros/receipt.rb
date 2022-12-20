@@ -13,15 +13,15 @@ class Receipt
 
   def count_letters
     total = 0
-    @retailer.downcase.split('').each do |letter|
-      if ('a'..'z').include?(letter)
+    @retailer.downcase.split('').each do |char|
+      if char.ord.between?(48, 59) || char.ord.between?(97,122)
         total += 1
       end
     end
     total
   end
 
-  def rounded
+  def total_on_the_dollar
     if @total.to_f.ceil > @total.to_f
       0
     else
@@ -50,10 +50,11 @@ class Receipt
   def trimmed
     total = 0
     @items.each do |item|
-      trim = item[:short_description].strip!
-      if !trim.nil?
-        item[:short_description].strip!.split('').count % 3 == 0
-        total += 1
+      trim = item[:short_description].strip
+      if trim.length % 3 == 0
+        puts item[:short_description]
+        result = (item[:price].to_f * 0.2).ceil
+        total += result
       end
     end
     total
@@ -69,7 +70,7 @@ class Receipt
 
   def special_time
     military_time = @purchase_time.split('')[0..1].join.to_i
-    if military_time.between?(14, 16)
+    if military_time >= 14 && military_time < 16
       10
     else
       0

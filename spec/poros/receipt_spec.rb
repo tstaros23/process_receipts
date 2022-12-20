@@ -6,10 +6,10 @@ RSpec.describe Receipt do
       {
         retailer: "T@rget",
         purchase_date: "2022-01-01",
-        purchase_time: "13.13",
+        purchase_time: "13:13",
         total: "1.24",
         items: [
-          {short_description: "Pepsi - 12-oz", price: "1.25"},
+          {short_description: "Pepsi - 12-oz e", price: "1.25"},
           {short_description: "Coke - 12-ozes", price: "1.25"}
         ]
       }
@@ -18,7 +18,7 @@ RSpec.describe Receipt do
       {
         retailer: "Target ",
         purchase_date: "2022-01-02",
-        purchase_time: "15.13",
+        purchase_time: "15:13",
         total: "1.00",
         items: [
           {short_description: "Pepsi - 12-oz", price: "1.25"}
@@ -27,7 +27,7 @@ RSpec.describe Receipt do
       @processed_receipt = Receipt.new(attr)
       @processed_receipt2 = Receipt.new(attr2)
   end
-  xit "builds receipt attributes" do
+  it "builds receipt attributes" do
     expect(@processed_receipt).to be_an_instance_of(Receipt)
 
      expect(@processed_receipt.retailer).to eq("T@rget")
@@ -39,7 +39,7 @@ RSpec.describe Receipt do
      expect(@processed_receipt.total).to eq('1.24')
      expect(@processed_receipt.total.class).to eq(String)
 
-     expect(@processed_receipt.items[0][:short_description]).to eq("Pepsi - 12-oz")
+     expect(@processed_receipt.items[0][:short_description]).to eq("Pepsi - 12-oz e")
      expect(@processed_receipt.items[0][:short_description].class).to eq(String)
 
      expect(@processed_receipt.items[0][:price]).to eq('1.25')
@@ -48,42 +48,42 @@ RSpec.describe Receipt do
      expect(@processed_receipt.id.class).to eq(String)
 
      expect(@processed_receipt.items).to eq([
-       {short_description: "Pepsi - 12-oz", price: "1.25"},
+       {short_description: "Pepsi - 12-oz e", price: "1.25"},
        {short_description: "Coke - 12-ozes", price: "1.25"}
      ])
   end
 
-  xit "can total alphanumeric characters" do
+  it "can total alphanumeric characters" do
     expect(@processed_receipt.count_letters).to eq(5)
     expect(@processed_receipt2.count_letters).to eq(6)
   end
 
-  xit "can add points if the total is a round dollar amount" do
+  it "can add points if the total is a round dollar amount" do
     expect(@processed_receipt.rounded).to eq(0)
     expect(@processed_receipt2.rounded).to eq(50)
   end
 
-  xit "has a total divisible by .25" do
+  it "has a total divisible by .25" do
     expect(@processed_receipt.divisible).to eq(0)
     expect(@processed_receipt2.divisible).to eq(25)
   end
 
-  xit "can add 5 points for every two items on the receipt" do
+  it "can add 5 points for every two items on the receipt" do
     expect(@processed_receipt.add_pairs).to eq(5)
     expect(@processed_receipt2.add_pairs).to eq(0)
   end
 
-  xit "can multiply points based on the trimmed short description length" do
+  it "can multiply points based on the trimmed short description length" do
     expect(@processed_receipt.trimmed).to eq(1)
     expect(@processed_receipt2.trimmed).to eq(0)
   end
 
-  xit "can add  6 points if the date is odd" do
+  it "can add  6 points if the date is odd" do
     expect(@processed_receipt.odd_date).to eq(6)
     expect(@processed_receipt2.odd_date).to eq(0)
   end
 
-  xit "can add 10 points if the purchase time is in between 2pm and 4pm" do
+  it "can add 10 points if the purchase time is in between 2pm and 4pm" do
     expect(@processed_receipt.special_time).to eq(0)
     expect(@processed_receipt2.special_time).to eq(10)
   end
@@ -107,7 +107,7 @@ RSpec.describe Receipt do
           short_description: "Doritos Nacho Cheese",
           price: "3.35"
         },{
-          short_description: "Klarbrunn 12PK 12 FL OZ",
+          short_description: "  Klarbrunn 12-PK 12 FL OZ ",
           price: "12.00"
         }
       ],
@@ -138,6 +138,7 @@ RSpec.describe Receipt do
     receipt3 = Receipt.new(attr3)
     receipt4 = Receipt.new(attr4)
 
-    expect(receipt3.calculate).to eq(25)
+    expect(receipt3.calculate).to eq(28)
+    expect(receipt4.calculate).to eq(109)
   end
 end

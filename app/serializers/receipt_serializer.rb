@@ -4,6 +4,6 @@ class ReceiptSerializer
   end
 
   def self.format_points(receipt)
-    {"points": receipt.total}
+    {"points": receipt.calculate}
   end
 end
