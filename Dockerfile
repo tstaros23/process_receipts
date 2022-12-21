@@ -1,4 +1,4 @@
-From ruby:2.7.2
+From ruby:2.7
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 
@@ -13,6 +13,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 
 RUN gem install bundler
 
+RUN gem install nokogiri --platform=ruby
 RUN bundle install
 
 COPY . /app
