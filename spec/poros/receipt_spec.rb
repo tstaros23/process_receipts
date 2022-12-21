@@ -5,23 +5,23 @@ RSpec.describe Receipt do
       attr =
       {
         retailer: "T@rget",
-        purchase_date: "2022-01-01",
-        purchase_time: "13:13",
+        purchaseDate: "2022-01-01",
+        purchaseTime: "13:13",
         total: "1.24",
         items: [
-          {short_description: "Pepsi - 12-oz e", price: "1.25"},
-          {short_description: "Coke - 12-ozes", price: "1.25"}
+          {shortDescription: "Pepsi - 12-oz e", price: "1.25"},
+          {shortDescription: "Coke - 12-ozes", price: "1.25"}
         ]
       }
 
       attr2 =
       {
         retailer: "Target ",
-        purchase_date: "2022-01-02",
-        purchase_time: "15:13",
+        purchaseDate: "2022-01-02",
+        purchaseTime: "15:13",
         total: "1.00",
         items: [
-          {short_description: "Pepsi - 12-oz", price: "1.25"}
+          {shortDescription: "Pepsi - 12-oz", price: "1.25"}
         ]
       }
       @processed_receipt = Receipt.new(attr)
@@ -33,14 +33,14 @@ RSpec.describe Receipt do
      expect(@processed_receipt.retailer).to eq("T@rget")
      expect(@processed_receipt.retailer.class).to eq(String)
 
-     expect(@processed_receipt.purchase_date).to eq("2022-01-01")
-     expect(@processed_receipt.purchase_date.class).to eq(String)
+     expect(@processed_receipt.purchaseDate).to eq("2022-01-01")
+     expect(@processed_receipt.purchaseDate.class).to eq(String)
 
      expect(@processed_receipt.total).to eq('1.24')
      expect(@processed_receipt.total.class).to eq(String)
 
-     expect(@processed_receipt.items[0][:short_description]).to eq("Pepsi - 12-oz e")
-     expect(@processed_receipt.items[0][:short_description].class).to eq(String)
+     expect(@processed_receipt.items[0][:shortDescription]).to eq("Pepsi - 12-oz e")
+     expect(@processed_receipt.items[0][:shortDescription].class).to eq(String)
 
      expect(@processed_receipt.items[0][:price]).to eq('1.25')
      expect(@processed_receipt.items[0][:price].class).to eq(String)
@@ -48,8 +48,8 @@ RSpec.describe Receipt do
      expect(@processed_receipt.id.class).to eq(String)
 
      expect(@processed_receipt.items).to eq([
-       {short_description: "Pepsi - 12-oz e", price: "1.25"},
-       {short_description: "Coke - 12-ozes", price: "1.25"}
+       {shortDescription: "Pepsi - 12-oz e", price: "1.25"},
+       {shortDescription: "Coke - 12-ozes", price: "1.25"}
      ])
   end
 
@@ -59,8 +59,8 @@ RSpec.describe Receipt do
   end
 
   it "can add points if the total is a round dollar amount" do
-    expect(@processed_receipt.rounded).to eq(0)
-    expect(@processed_receipt2.rounded).to eq(50)
+    expect(@processed_receipt.total_on_the_dollar).to eq(0)
+    expect(@processed_receipt2.total_on_the_dollar).to eq(50)
   end
 
   it "has a total divisible by .25" do
@@ -91,23 +91,23 @@ RSpec.describe Receipt do
     attr3 =
     {
       retailer: "Target",
-      purchase_date: "2022-01-01",
-      purchase_time: "13:01",
+      purchaseDate: "2022-01-01",
+      purchaseTime: "13:01",
       items: [
         {
-          short_description: "Mountain Dew 12PK",
+          shortDescription: "Mountain Dew 12PK",
           price: "6.49"
         },{
-          short_description: "Emils Cheese Pizza",
+          shortDescription: "Emils Cheese Pizza",
           price: "12.25"
         },{
-          short_description: "Knorr Creamy Chicken",
+          shortDescription: "Knorr Creamy Chicken",
           price: "1.26"
         },{
-          short_description: "Doritos Nacho Cheese",
+          shortDescription: "Doritos Nacho Cheese",
           price: "3.35"
         },{
-          short_description: "  Klarbrunn 12-PK 12 FL OZ ",
+          shortDescription: "  Klarbrunn 12-PK 12 FL OZ ",
           price: "12.00"
         }
       ],
@@ -116,20 +116,20 @@ RSpec.describe Receipt do
     attr4 =
     {
       retailer: "M&M Corner Market",
-      purchase_date: "2022-03-20",
-      purchase_time: "14:33",
+      purchaseDate: "2022-03-20",
+      purchaseTime: "14:33",
       items: [
         {
-          short_description: "Gatorade",
+          shortDescription: "Gatorade",
           price: "2.25"
         },{
-          short_description: "Gatorade",
+          shortDescription: "Gatorade",
           price: "2.25"
         },{
-          short_description: "Gatorade",
+          shortDescription: "Gatorade",
           price: "2.25"
         },{
-          short_description: "Gatorade",
+          shortDescription: "Gatorade",
           price: "2.25"
         }
       ],

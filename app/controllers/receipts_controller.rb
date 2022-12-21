@@ -13,6 +13,6 @@ class ReceiptsController < ApplicationController
   private
 
   def receipt_params
-    params.permit(:retailer, :purchase_date, :purchase_time, :total, :short_description, :price, :id, items: [:short_description, :price])
+    params.permit(:retailer, :purchaseDate, :purchaseTime, :total, :shortDescription, :price, :id, items: [:shortDescription, :price])
   end
 end
