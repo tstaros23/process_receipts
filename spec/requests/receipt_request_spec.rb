@@ -4,11 +4,11 @@ require 'rails_helper'
    it 'can create a receipt and look up the object by id' do
      body = {
        retailer: 'Target',
-       purchase_date: "2022-01-02",
-       purchase_time: "13:13",
+       purchaseDate: "2022-01-02",
+       purchaseTime: "13:13",
        total: "1.25",
        items: [
-         {short_description: "Pepsi - 12-oz", price: "1.25"}
+         {shortDescription: "Pepsi - 12-oz", price: "1.25"}
        ]
      }
 
