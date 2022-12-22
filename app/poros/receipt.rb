@@ -52,7 +52,7 @@ class Receipt
     @items.each do |item|
       trim = item[:shortDescription].strip
       if trim.length % 3 == 0
-        puts item[:shortDescription]
+        item[:shortDescription]
         result = (item[:price].to_f * 0.2).ceil
         total += result
       end
