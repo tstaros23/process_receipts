@@ -1,25 +1,52 @@
-# README
+# Getting Started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+What things you need to install the software and how to install them:
 
-* System dependencies
+- [Docker](https://docs.docker.com/)
+### Installing
 
-* Configuration
+#### 1. Clone the repository
 
-* Database creation
+```
+git clone git@github.com:tstaros23/process_receipts.git && cd process_receipts
+```
+#### 2. Build the project
 
-* Database initialization
+```
+docker-compose build
+```
+#### 3. Start the server
 
-* How to run the test suite
+```
+docker-compose up
+```
+Please have a look at [Quickstart: Compose and Rails](https://docs.docker.com/compose/rails/) if you run into any trouble while installing.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Running the tests
 
-* Deployment instructions
+You can run all the specs using the following command:
 
-* ...
-# process_receipts
+```
+docker exec -it process_receipts rspec
+```
+If you want to run a single spec, use the following pattern:
+
+```
+docker exec -it process_receipts rspec spec/requests/receipt_request_spec.rb
+```
+## Checking the logs
+
+You can check the development logs using the following command:
+
+```
+docker exec -it process_receipts tail -f log/development.log
+```
+
+If you want to check the test logs, you'll need to use the following command:
+
+```
+docker exec -it process_receipts tail -f log/test.log
