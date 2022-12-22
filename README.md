@@ -24,7 +24,6 @@ docker-compose build
 ```
 docker-compose up
 ```
-Please have a look at [Quickstart: Compose and Rails](https://docs.docker.com/compose/rails/) if you run into any trouble while installing.
 
 ## Running the tests
 
