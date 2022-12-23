@@ -27,4 +27,32 @@ require 'rails_helper'
      get_data = JSON.parse(response.body, symbolize_names: true)
      expect(get_data[:points]).to eq(31)
    end
+
+   it "returns an error if a id is missing or invalid" do
+     body = {
+       retailer: 'Target',
+       purchaseDate: "2022-01-02",
+       purchaseTime: "13:13",
+       total: "1.25",
+       items: [
+         {shortDescription: "Pepsi - 12-oz", price: "1.25"}
+       ]
+     }
+
+     post '/receipts/process', params: body
+     expect(response).to be_successful
+     expect(response.status).to eq(201)
+     incorrect_id = 1234
+
+     receipt_json = JSON.parse(response.body, symbolize_names: true)
+     expect(receipt_json).to have_key(:id)
+
+     get "/receipts/#{incorrect_id}/points"
+
+     expect(response).not_to be_successful
+     expect(response.status).to eq(400)
+
+     get_data = JSON.parse(response.body, symbolize_names: true)
+     expect(get_data[:errors][:details]).to eq("Invalid ID")
+   end
  end
