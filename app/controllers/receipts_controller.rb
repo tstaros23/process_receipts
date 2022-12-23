@@ -1,7 +1,11 @@
 class ReceiptsController < ApplicationController
   def show
     receipt = Rails.cache.read("#{receipt_params[:id]}")
-    render json: ReceiptSerializer.format_points(receipt), status: :ok
+    if receipt.nil?
+      render json: {errors: {details: "Invalid ID"}}, status: :bad_request
+    else
+      render json: ReceiptSerializer.format_points(receipt), status: :ok
+    end
   end
 
   def create
@@ -10,7 +14,6 @@ class ReceiptsController < ApplicationController
     render json: ReceiptSerializer.format_processor(receipt), status: :created
   end
 
-  private
 
   def receipt_params
     params.permit(:retailer, :purchaseDate, :purchaseTime, :total, :shortDescription, :price, :id, items: [:shortDescription, :price])
