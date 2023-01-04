@@ -50,7 +50,7 @@ require 'rails_helper'
      get "/receipts/#{incorrect_id}/points"
 
      expect(response).not_to be_successful
-     expect(response.status).to eq(400)
+     expect(response.status).to eq(404)
 
      get_data = JSON.parse(response.body, symbolize_names: true)
      expect(get_data[:errors][:details]).to eq("Invalid ID")

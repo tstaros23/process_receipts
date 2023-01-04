@@ -2,7 +2,7 @@ class ReceiptsController < ApplicationController
   def show
     receipt = Rails.cache.read("#{receipt_params[:id]}")
     if receipt.nil?
-      render json: {errors: {details: "Invalid ID"}}, status: :bad_request
+      render json: {errors: {details: "Invalid ID"}}, status: :not_found
     else
       render json: ReceiptSerializer.format_points(receipt), status: :ok
     end
