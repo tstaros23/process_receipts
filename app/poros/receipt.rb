@@ -1,7 +1,19 @@
 require 'securerandom'
 
 class Receipt
-  attr_reader :retailer, :purchaseDate, :purchaseTime, :total, :shortDescription, :price, :items, :id
+  include ActiveModel::API
+
+  attr_accessor :retailer, :purchaseDate, :purchaseTime, :total, :shortDescription, :price, :items, :id
+
+  validates_presence_of :retailer, :purchaseDate, :purchaseTime, :purchaseDate, :total, :shortDescription, :price, :items, :id
+
+
+  # validates_each :retailer, :purchaseDate, :purchaseTime, :total, :shortDescription, :price, :items, :id do |record, attr, value|
+  #   if value.blank?
+  #     record.errors.add attr, "must exist"
+  #   end
+
+
   def initialize(attr)
     @retailer = attr[:retailer]
     @purchaseDate = attr[:purchaseDate]

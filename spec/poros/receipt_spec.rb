@@ -141,4 +141,7 @@ RSpec.describe Receipt do
     expect(receipt3.calculate).to eq(28)
     expect(receipt4.calculate).to eq(109)
   end
+  it "has valid attributes" do
+    
+  end
 end

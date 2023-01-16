@@ -192,6 +192,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel
   bootsnap (>= 1.4.2)
   byebug
   listen (~> 3.2)

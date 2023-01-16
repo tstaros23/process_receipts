@@ -55,4 +55,18 @@ require 'rails_helper'
      get_data = JSON.parse(response.body, symbolize_names: true)
      expect(get_data[:errors][:details]).to eq("Invalid ID")
    end
+
+   it "gives a bad request if a receipt attribute is missing" do
+     body = {
+       retailer: 'Target',
+       purchaseDate: "2022-01-02",
+       purchaseTime: "13:13",
+       total: "1.25",
+       items: [
+         {shortDescription: nil, price: "1.25"}
+       ]
+     }
+     post '/receipts/process', params: body
+     expect(response).to_not be_successful
+   end
  end

@@ -10,8 +10,12 @@ class ReceiptsController < ApplicationController
 
   def create
     receipt = Receipt.new(receipt_params)
-    Rails.cache.write("#{receipt.id}", receipt)
-    render json: ReceiptSerializer.format_processor(receipt), status: :created
+    if receipt.valid?
+      Rails.cache.write("#{receipt.id}", receipt)
+      render json: ReceiptSerializer.format_processor(receipt), status: :created
+    else
+      render json: {errors: {details: "Invalid ID"}}, status: :bad_request
+    end
   end
 
 
